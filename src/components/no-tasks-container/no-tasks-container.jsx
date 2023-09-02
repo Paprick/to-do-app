@@ -1,7 +1,6 @@
 import * as styled from './no-tasks-container.styled'
 
 export const NoTasksContainer = () => {
-
     return (
         <styled.NoTasksComponent>
             <p>No <span>tasks</span> for today</p>

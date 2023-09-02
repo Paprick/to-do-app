@@ -1,24 +1,29 @@
-import React from 'react'
+import PropTypes from 'prop-types';
 import * as styled from './checkbox.styled'
 
-import { useEnterSpacePress } from '../../../hooks/useEnterSpacePress'
+import { useKeyPressAction } from '../../../hooks/useKeyPressAction'
 
- 
-
-export const Checkbox = ({ checked, onChange }) => {
-
-    const handleCheckKey = useEnterSpacePress(onChange)
+export const Checkbox = ({ checked, onChange, id }) => {
+    const handleCheckKey = useKeyPressAction(onChange)
     return (
-        <styled.CheckboxLabel
-        >
+        <styled.CheckboxWrapper>
+            <styled.CheckboxLabel 
+                htmlFor={ id }
+            >
+                Mark task as completed
+            </styled.CheckboxLabel>
             <styled.CheckboxContainer 
                 checked={ checked }
                 onChange={ onChange }
                 onKeyDown={ handleCheckKey }
                 tabIndex={ 0 }
+                id={ id }
             />
             <styled.CustomCheckbox />
-        </styled.CheckboxLabel>
-
+        </styled.CheckboxWrapper>
     )
+}
+Checkbox.propTypes = {
+    checked: PropTypes.bool.isRequired,
+    onChange: PropTypes.func.isRequired
 }

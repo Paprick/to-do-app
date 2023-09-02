@@ -97,7 +97,7 @@ export const StyledCalendar = styled(Calendar)`
         text-align: center;
     }
     
-    // --------------- Tiles -------------
+    // ------------- Tiles -------------
 
     button {
         background-color: ${theme.neutral};

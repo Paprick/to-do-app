@@ -1,72 +1,39 @@
-import React, { useCallback, useState } from 'react'
+import { useState } from 'react'
+import PropTypes from 'prop-types';
 import * as styled from './header.styled'
+import { dateToStr } from '../../utils/dateToStr'
 
-import { CommonBtn } from '../../components/common-btn/common-btn'
-import { CalendarWindow } from '../calendar/calendar-window'
+import { CalendarDisplay } from '../calendar-display/calendar-display'
+import { CreateNewTask } from '../create-new-task/create-new-task'
+import { OpenCalendar } from '../open-calendar/open-calendar'
 
-import { faCalendar } from '@fortawesome/free-regular-svg-icons'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-
-
-export const Header = ({ newTask, dateStr, date, selectDate }) => {
+export const Header = ({ setTasks, dateStr, date, selectDate }) => {
     const [toggleCalendar, setToggleCalendar] = useState(false)
-    const handleCalendarToggle = () => {
-        setToggleCalendar(!toggleCalendar)
+    const dateOptions = {
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric'   
     }
-
-    const handleNewTask = useCallback(() => {
-
-        newTask((prevState) => {
-            const prevTasks = { ...prevState }
-            const firstCheckedItem = prevTasks[dateStr] && prevTasks[dateStr].findIndex((item) => item.checked)
-
-            if(prevTasks[dateStr]) {
-                if (firstCheckedItem !== -1) {
-                    const tasksForDate = [ ...prevTasks[dateStr] ]
-                    tasksForDate.splice(firstCheckedItem, 0, { id: prevTasks[dateStr].length + 1, details: '', checked: false })
-                    prevTasks[dateStr] = tasksForDate
-                } else {
-                    prevTasks[dateStr] = [...prevTasks[dateStr], { id: prevTasks[dateStr].length + 1, details: '', checked: false }]
-                }       
-            } else {
-                prevTasks[dateStr] = [{ id: 1, details: '', checked: false }]
-            }
-            return prevTasks
-        })
-        
-    }, [newTask, dateStr])
-
-    const dateToStr = () => {
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-        return date.toLocaleDateString(undefined, options)
-    }
+    const fullDate = dateToStr(date, undefined, dateOptions)
 
     return(
         <>
             <styled.HeaderSection>
                 <styled.Label>
-                    { dateToStr() }
+                    { fullDate }
                 </styled.Label>
-                <CommonBtn
-                    buttonId={'calendar-btn'}
-                    tooltipText={ 'Calendar' }
-                    tooltipPlace={ 'bottom' }
-                    onClick={ handleCalendarToggle }
-                    active={ toggleCalendar }
-                >
-                    <styled.StyledIcon icon={ faCalendar } size={ 'xl' }/>
-                </CommonBtn>
-                <CommonBtn
-                    buttonId={'new-task-btn'}
-                    tooltipText={ 'New task' }
-                    tooltipPlace={ 'bottom' } 
-                    onClick={ handleNewTask }
-                >
-                    <styled.StyledIcon icon={ faPlus } size={ 'xl' }/>
-                </CommonBtn>
+                <OpenCalendar 
+                    toggleCalendar={ toggleCalendar }
+                    setToggleCalendar={ setToggleCalendar }
+                />
+                <CreateNewTask 
+                    setTasks= { setTasks }
+                    dateStr= { dateStr }
+                />
             </styled.HeaderSection>
             { toggleCalendar &&
-                <CalendarWindow
+                <CalendarDisplay
                     date={ date }
                     selectDate={ selectDate }
                 />
@@ -74,4 +41,10 @@ export const Header = ({ newTask, dateStr, date, selectDate }) => {
         </>
         
     )
-}    
+}
+Header.propTypes = {
+    setTasks: PropTypes.func.isRequired,
+    dateStr: PropTypes.string.isRequired,
+    date: PropTypes.instanceOf(Date).isRequired,
+    selectDate: PropTypes.func.isRequired
+};

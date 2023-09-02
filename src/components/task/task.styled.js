@@ -12,7 +12,7 @@ export const TaskWrapper = styled.div`
     justify-items: center;
     align-items: center;
     padding: ${props => props.$isDragging ? '7px 18px' : '7px 0px'};
-    height: ${props => props.$expanded ? props.scrollheight : '52px'};
+    height: auto;
     transition: height 0.2s;
     z-index: ${props => props.$isDragging ? '51' : '50'};
     
@@ -45,31 +45,3 @@ export const TaskNumber = styled.div`
     font-size: 21px;
     font-weight: 600;
 `
-
-export const TaskCheck = styled.input.attrs({ type: 'checkbox' })`
-    cursor: pointer;
-`
-export const TaskDel = styled.div`
-    color: ${theme.red};
-    cursor: pointer;
-    user-select: none;
-    
-    @media (hover: hover) and (pointer: fine) {
-        &:hover {
-            border-radius: 25px;
-            padding: 2px;
-            border: 2px dashed ${theme.red};
-        }
-    }
-    &:focus-visible {
-        outline: none;
-        border-radius: 25px;
-        padding: 2px;
-        border: 2px dashed ${theme.red};
-    }
-`
-export const StyledTooltip = styled.div`
-    background-color: ${theme.red}!important;
-    color: ${theme.neutral}!important;
-    z-index: 75;
-`;

@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import { theme } from '../../utils/theme';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export const SideBar = styled.div`
+export const SideBar = styled.button`
     position: fixed;
     display: flex;
     justify-content: center;
@@ -15,7 +16,6 @@ export const SideBar = styled.div`
     border: 2px solid ${theme.primary};
     border-radius: ${props => props.$decrement ? '0 100% 100% 0 / 0 50% 50% 0' : '100% 0 0 100% / 50% 0 0 50%'};
     cursor: pointer;
-    //transform: translate(0%, -50%);
     ${props => (props.$decrement ? 'left: 0' : 'right: 0')};
     font-size: 1rem;
     z-index: 75;
@@ -51,3 +51,8 @@ export const StyledTooltip = styled.div`
     color: ${theme.neutral}!important;
     z-index: 75;
 `;
+export const StyledIcon = styled(FontAwesomeIcon)`
+    @media only screen and (max-width: 900px) {
+        font-size: 1.2em;
+    }
+`

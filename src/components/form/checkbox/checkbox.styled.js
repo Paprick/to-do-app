@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { theme } from '../../../utils/theme'
 
-export const CheckboxLabel = styled.label`
+export const CheckboxWrapper = styled.label`
     position: relative;
     display: flex;
     align-items: center;
@@ -67,4 +67,9 @@ export const CustomCheckbox = styled.span`
             }
         }
     }
+`
+export const CheckboxLabel = styled.label`
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
 `

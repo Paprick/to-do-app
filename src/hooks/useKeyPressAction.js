@@ -1,13 +1,10 @@
 import  { useEffect, useRef } from 'react'
 
-
-export const useEnterSpacePress = (callback) => {
+export const useKeyPressAction = (callback) => {
     const callbackRef = useRef(callback)
-
     useEffect(() => {
         callbackRef.current = callback
     }, [callback])
-
 
     const handleKeyPress = (event) => {
         if (event.key === 'Enter' || event.key === ' ') {

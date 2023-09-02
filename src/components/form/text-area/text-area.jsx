@@ -1,40 +1,51 @@
-import React, { useRef } from "react"
+import { useRef } from "react"
+import PropTypes from "prop-types"
 import * as styled from './text-area.styled'
+
+import { useAutosize } from "./useAutosize"
 
 export const TextArea = ({ 
         taskDetails, 
         detailsChange, 
-        onFocus, 
-        onBlur, 
-        expanded, 
-        scrollheight, 
-        textSelectStart, 
-        textSelectEnd 
+        setIsTextboxFocused,
+        id
     }) => {  
-
     const inputRef = useRef(null)
 
-    const handleBlur = () => {
-        onBlur()
-        inputRef.current.blur()
+    const [
+        shouldAnimate,
+        handleFocus,
+        handleBlur, 
+        onChange
+    ] = useAutosize(inputRef, taskDetails)
+
+    const handleTextboxFocus = () =>{
+        setIsTextboxFocused(true)
+    }
+    const handleTextboxBlur = () => {
+        setIsTextboxFocused(false)
     }
 
     return(
         <styled.TexareaContainer
-            ref={inputRef}
+            id={ id }
+            ref={ inputRef }
             value={ taskDetails }
+            className={ `${shouldAnimate ? 'animate-textarea' : ''}` }
             placeholder={ 'New Task' }
-            onChange={ (e) => { detailsChange(e); onFocus(e); } }
-            onFocus={ onFocus }
-            onBlur={ onBlur }
-            onMouseEnter={ (e)=> { onFocus(e); textSelectStart(); } }
-            onMouseOut={ ()=> { handleBlur(); textSelectEnd(); } }
-            $expanded={ expanded }
-            scrollheight={ scrollheight }
-            onTouchStart={ textSelectStart }
-            onTouchEnd={ textSelectEnd }
+            onChange={ (e) => {detailsChange(e); onChange();} }
+            onFocus={ handleFocus }
+            onBlur={ handleBlur }
+            onMouseEnter={ ()=> { handleTextboxFocus(); } }
+            onMouseOut={ ()=> { handleBlur(); handleTextboxBlur(); } }
+            onTouchStart={ handleTextboxFocus }
+            onTouchEnd={ handleTextboxBlur }
         >
-
         </styled.TexareaContainer>
     )
+}
+TextArea.propTypes = {
+  detailsChange: PropTypes.func.isRequired,
+  setIsTextboxFocused: PropTypes.func.isRequired,
+  taskDetails: PropTypes.any
 }

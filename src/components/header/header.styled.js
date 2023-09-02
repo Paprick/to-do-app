@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { theme } from '../../utils/theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export const HeaderSection = styled.section`
+export const HeaderSection = styled.nav`
     position: sticky;
     top: 0;
     box-sizing: border-box;
@@ -37,12 +37,3 @@ export const Label = styled.div`
         font-size: 0.8em;
     }
 `;
-export const StyledIcon = styled(FontAwesomeIcon)`
-
-    @media only screen and (max-width: 900px) {
-        font-size: 1em;
-    }
-    @media only screen and (max-width: 600px) {
-        font-size: 0.8em;
-    }
-`

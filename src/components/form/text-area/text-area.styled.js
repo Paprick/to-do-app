@@ -1,22 +1,25 @@
 import styled from 'styled-components'
 import { theme } from '../../../utils/theme';
 
+
 export const TexareaContainer = styled.textarea`
+    font-family: 'Arial' ,'Open Sans';
     resize: none;
     color: ${theme.black};
     box-sizing: border-box;
     width: 100%;
-    height: ${props => props.$expanded ? props.scrollheight : '50px'};
-    transition: height 0.2s ease;
+    height: 59px;
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1rem;
     border: 0px;
     box-shadow: 0 0 2px ${theme.black};
     padding: 13px 13px;
     &:hover {
+        padding: 11px 13px;
         border: 2px solid ${theme.secondary};
     }
     &:focus-visible {
+        padding: 11px 13px;
         outline: none;
         border: 2px solid ${theme.secondary};
     }
@@ -26,5 +29,8 @@ export const TexareaContainer = styled.textarea`
     }
     @media only screen and (max-width: 600px) {
         font-size: 0.85em;
+    }
+    &.animate-textarea {
+        transition: height 0.3s ease;
     }
 `;
