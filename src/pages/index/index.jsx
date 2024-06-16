@@ -78,7 +78,7 @@ export const Index = () => {
                     isSwipedRight={ isSwipedRight }
                     isSwipedLeft={ isSwipedLeft }
                     handleAnimationEnd={ handleAnimationEnd }
-                    selectDate={ setDate }
+                    selectDate={ dateNav }
                 />
                 <DateStepper
                     selectDate={ dateNav }
